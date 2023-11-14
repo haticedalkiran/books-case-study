@@ -1,0 +1,7 @@
+.mantine-Button-root {
+  visibility: hidden;
+}
+.mantine-Card-root:hover .mantine-Button-root {
+  visibility: visible;
+  background-color: purple;
+}

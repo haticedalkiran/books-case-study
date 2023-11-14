@@ -7,7 +7,7 @@ export const BooksService = createApi({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: ({ query }) => ({
-        url: `https://www.googleapis.com/books/v1/volumes?q=${query}&langRestrict=en&maxResults=20`,
+        url: `/volumes?q=${query}&langRestrict=en&filter=paid-ebooks`, //filter to get prices bc some books don't have
         method: 'GET',
       }),
     }),
