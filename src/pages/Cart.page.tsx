@@ -5,9 +5,7 @@ export function CartPage() {
   return (
     <>
       <Header />
-      <Container>
-        <Text>Cart</Text>
-      </Container>
+      <Container></Container>
     </>
   );
 }

@@ -1,7 +1,13 @@
-.mantine-Button-root {
-  visibility: hidden;
+.mantine-Card-root {
+  height: 100%;
 }
-.mantine-Card-root:hover .mantine-Button-root {
-  visibility: visible;
-  background-color: purple;
+/* TODO screen size */
+@media (min-width: 768px) {
+  /* .mantine-Button-root {
+    visibility: hidden;
+  }
+
+  .mantine-Card-root:hover .mantine-Button-root {
+    visibility: visible;
+  } */
 }

@@ -11,7 +11,13 @@ export const BooksService = createApi({
         method: 'GET',
       }),
     }),
+    getBookDetails: builder.query({
+      query: ({ id }) => ({
+        url: `/volumes/${id}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useLazyGetBooksQuery } = BooksService;
+export const { useLazyGetBooksQuery, useGetBookDetailsQuery } = BooksService;
