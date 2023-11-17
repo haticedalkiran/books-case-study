@@ -7,6 +7,7 @@ import {
   Grid,
   Group,
   Image,
+  Loader,
   Stack,
   Tabs,
   Text,
@@ -22,15 +23,18 @@ export function BookDetail() {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   if (!bookData) {
-    return <>loading</>;
+    return (
+      <Box ta="center">
+        <Loader />
+      </Box>
+    );
   }
   return (
     <Grid>
-      <Grid.Col span={6}>
+      <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 2, md: 1 }}>
         <Stack gap="lg">
           <Box>
             <Title order={1}>{bookData.volumeInfo.title.toUpperCase()}</Title>
-
             <Flex>
               {bookData.volumeInfo.authors?.map((author: string, index: string) => (
                 <Text key={index} style={{ color: '#919191' }}>
@@ -89,7 +93,7 @@ export function BookDetail() {
           </Tabs>
         </Stack>
       </Grid.Col>
-      <Grid.Col span={6}>
+      <Grid.Col span={{ base: 12, md: 6 }} order={{ base: 1, md: 2 }}>
         <Stack>
           <Image
             style={{ maxWidth: '100%', maxHeight: '500px' }}
