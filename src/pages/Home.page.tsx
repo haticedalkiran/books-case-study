@@ -22,7 +22,6 @@ export function HomePage() {
   }
   return (
     <>
-      {/* TODO type */}
       <Grid gutter={'24px'}>
         {data.items.map((item: Book, index: string) => (
           <Grid.Col key={index} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>

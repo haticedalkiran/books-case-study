@@ -33,12 +33,15 @@ export function BookCard({ id, title, author, imageUrl, price, publisher }: Book
       </Card.Section>
       <Stack h="100%" justify="space-between">
         <Stack justify="space-between" mt="md" mb="xs">
-          <Text lineClamp={2}>
-            {title} - {author}
+          <Stack gap="0">
+            <Text lineClamp={2} fw={700}>
+              {title} - {author}
+            </Text>
+            <Text c="dimmed">{publisher}</Text>
+          </Stack>
+          <Text c="green" fw={500}>
+            {price} TL
           </Text>
-          <Text>{publisher}</Text>
-
-          <Text>{price} TL</Text>
         </Stack>
 
         {/* when card hovered, make button visible */}

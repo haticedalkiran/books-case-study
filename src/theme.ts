@@ -7,6 +7,34 @@ import {
 } from '@mantine/core';
 
 export const theme = createTheme({
+  primaryColor: 'orange',
+  colors: {
+    orange: [
+      '#fff0e3',
+      '#ffe0cd',
+      '#ffc19b',
+      '#ff9f64',
+      '#fe8137',
+      '#fe701a',
+      '#ff6609',
+      '#e45400',
+      '#cb4a00',
+      '#b13d00',
+    ],
+    green: [
+      '#ecfbec',
+      '#dcf2dd',
+      '#b9e1bc',
+      '#93d198',
+      '#74c37a',
+      '#60ba66',
+      '#53b65b',
+      '#449f4b',
+      '#398d40',
+      '#2b7b34',
+    ],
+  },
+
   components: {
     Card: Card.extend({
       defaultProps: {

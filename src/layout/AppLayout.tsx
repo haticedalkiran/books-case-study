@@ -1,6 +1,7 @@
 import { AppShell, Burger, Container, Flex, Group, Stack, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { NavLink, Outlet } from 'react-router-dom';
+import { Home, ShoppingCart } from 'tabler-icons-react';
 
 export function AppLayout() {
   const [opened, { toggle }] = useDisclosure();
@@ -21,11 +22,15 @@ export function AppLayout() {
             <Group ml="xl" gap={0} visibleFrom="sm">
               <Flex columnGap={16}>
                 <NavLink to="/">
-                  <Text>Home</Text>
+                  {({ isActive }) => (
+                    <Home strokeWidth="1.5" color={isActive ? 'green' : 'black'} />
+                  )}
                 </NavLink>
 
                 <NavLink to="/cart">
-                  <Text>Cart</Text>
+                  {({ isActive }) => (
+                    <ShoppingCart strokeWidth="1.5" color={isActive ? 'green' : 'black'} />
+                  )}
                 </NavLink>
               </Flex>
             </Group>
@@ -36,10 +41,10 @@ export function AppLayout() {
       <AppShell.Navbar py="md" px={16}>
         <Stack gap={16}>
           <NavLink to="/" onClick={toggle}>
-            <Text>Home</Text>
+            {({ isActive }) => <Text c={isActive ? 'green' : 'black'}>Home</Text>}
           </NavLink>
           <NavLink to="/cart" onClick={toggle}>
-            <Text>Cart</Text>
+            {({ isActive }) => <Text c={isActive ? 'green' : 'black'}>Cart</Text>}
           </NavLink>
         </Stack>
       </AppShell.Navbar>
