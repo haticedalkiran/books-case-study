@@ -10,6 +10,7 @@ import {
   Text,
   Title,
   Grid,
+  Container,
 } from '@mantine/core';
 import { Plus, Trash } from 'tabler-icons-react';
 
@@ -50,9 +51,13 @@ export function CartPage() {
     totalPrice: 2818.33,
   }; //useSelector((state: any) => state.cart); // TODO
 
+  if (!cart.items || cart.items.length === 0) {
+    return <EmptyView />;
+  }
+
   return (
     <>
-      <Grid gutter={'2rem'}>
+      <Grid gutter={'2rem'} mb={'80px'}>
         <Grid.Col span={{ base: 12, md: 8 }}>
           <Stack gap="lg">
             {cart.items &&
@@ -115,7 +120,7 @@ export function CartPage() {
               ))}
           </Stack>
         </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 4 }}>
+        <Grid.Col span={{ base: 12, md: 4 }} display={{ base: 'none', md: 'block' }}>
           <Flex
             direction="column"
             style={{ border: '1px solid #eee', padding: '2rem' }}
@@ -127,6 +132,26 @@ export function CartPage() {
           </Flex>
         </Grid.Col>
       </Grid>
+      <Box
+        display={{ base: 'block', md: 'none' }}
+        pos="fixed"
+        left="0"
+        bottom="0"
+        bg={'var(--mantine-color-body)'}
+        w="100%"
+        py={'0.5rem'}
+        style={{ borderTop: '1px solid var(--mantine-color-default-border)' }}
+      >
+        <Container>
+          <Flex justify="space-between" align="center">
+            <Stack gap={0}>
+              <Text>Total Price</Text>
+              <Text> {cart.totalPrice} TL</Text>
+            </Stack>
+            <Button>Complete Order</Button>
+          </Flex>
+        </Container>
+      </Box>
     </>
   );
 }
