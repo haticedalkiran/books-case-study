@@ -1,5 +1,5 @@
-import { BooksService } from '@/service/books.service';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { BooksService } from '@/service/books.service';
 import cartState from './cart.state';
 
 const rootReducer = combineReducers({

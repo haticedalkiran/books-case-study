@@ -4,6 +4,9 @@ interface Product {
   id: string;
   name: string;
   price: number;
+  imageUrl: string;
+  author: any;
+  publisher: string;
 }
 
 interface CartItem extends Product {
