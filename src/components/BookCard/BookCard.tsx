@@ -6,8 +6,8 @@ import { addItem } from '@/store/cart.state';
 interface BookCardInterface {
   id: string;
   title: string;
-  author: any;
-  imageUrl: string;
+  author: string[];
+  imageUrl?: string;
   price: number;
   publisher: string;
 }

@@ -1,3 +1,4 @@
+import { IndustryIdentifier } from '@/interfaces/volume.interface';
 import { useGetBookDetailsQuery } from '@/service/books.service';
 import {
   Anchor,
@@ -77,7 +78,7 @@ export function BookDetail() {
                   <Text>
                     {
                       bookData.volumeInfo.industryIdentifiers.find(
-                        (item: any) => item.type === 'ISBN_13'
+                        (item: IndustryIdentifier) => item.type === 'ISBN_13'
                       ).identifier
                     }
                   </Text>

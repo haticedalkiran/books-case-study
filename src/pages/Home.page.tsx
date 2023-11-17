@@ -1,4 +1,5 @@
 import { BookCard } from '@/components/BookCard';
+import { Book } from '@/interfaces/book.interface';
 import { useLazyGetBooksQuery } from '@/service/books.service';
 import { Box, Grid, Loader } from '@mantine/core';
 import { useEffect, useState } from 'react';
@@ -23,7 +24,7 @@ export function HomePage() {
     <>
       {/* TODO type */}
       <Grid gutter={'24px'}>
-        {data.items.map((item: any, index: string) => (
+        {data.items.map((item: Book, index: string) => (
           <Grid.Col key={index} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
             <Link to={`/book/${item.id}`}>
               <BookCard
