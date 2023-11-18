@@ -1,6 +1,6 @@
 import { CartBook } from '@/interfaces/cartBook.interface';
 import { CartItem } from '@/interfaces/cartItem.interface';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CartState {
   items: CartItem[];
@@ -28,10 +28,32 @@ const cartSlice = createSlice({
 
       state.totalPrice += product.price * quantity;
     },
-    removeItem: (state, action) => {},
-    updateQuantity: (state, action) => {},
+    removeItem: (state, action) => {
+      const productId = action.payload;
+      const existingItem = state.items.find((item) => item.id === productId);
+
+      if (existingItem) {
+        state.totalPrice -= existingItem.price * existingItem.quantity;
+        state.items = state.items.filter((item) => item.id !== productId);
+      }
+    },
+    updateQuantity: (state, action) => {
+      const { productId, quantity } = action.payload;
+      const existingItem = state.items.find((item) => item.id === productId);
+
+      if (existingItem) {
+        existingItem.quantity += quantity;
+
+        if (existingItem.quantity <= 0) {
+          state.items = state.items.filter((item) => item.id !== productId);
+          state.totalPrice -= existingItem.price;
+        } else {
+          state.totalPrice += existingItem.price * quantity;
+        }
+      }
+    },
   },
 });
 
-export const { addItem } = cartSlice.actions;
+export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

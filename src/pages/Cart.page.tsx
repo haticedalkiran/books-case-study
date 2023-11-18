@@ -1,55 +1,11 @@
-import { EmptyView } from '@/components/EmptyView/EmptyView';
-import {
-  ActionIcon,
-  Box,
-  Button,
-  Flex,
-  Group,
-  Image,
-  Stack,
-  Text,
-  Title,
-  Grid,
-  Container,
-} from '@mantine/core';
-import { Plus, Trash } from 'tabler-icons-react';
+import { CartProduct } from '@/components/CartProduct';
+import { EmptyView } from '@/components/EmptyView';
+import { CartItem } from '@/interfaces/cartItem.interface';
+import { Box, Button, Flex, Stack, Title, Grid, Container } from '@mantine/core';
+import { useSelector } from 'react-redux';
 
 export function CartPage() {
-  const cart = {
-    items: [
-      {
-        id: 'zBTMDwAAQBAJ',
-        name: 'The List',
-        price: 367.61,
-        imageUrl:
-          'http://books.google.com/books/content?id=zBTMDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-        author: ['Carys Jones'],
-        publisher: 'Hachette UK',
-        quantity: 1,
-      },
-      {
-        id: 'c54YBwAAQBAJ',
-        name: 'The Charm of a List',
-        price: 1714.93,
-        imageUrl:
-          'http://books.google.com/books/content?id=c54YBwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-        author: ['Lucie Doležalová'],
-        publisher: 'Cambridge Scholars Publishing',
-        quantity: 1,
-      },
-      {
-        id: 'T8hEDwAAQBAJ',
-        name: 'Make a List',
-        price: 735.79,
-        imageUrl:
-          'http://books.google.com/books/content?id=T8hEDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-        author: ['Marilyn McEntyre'],
-        publisher: 'Wm. B. Eerdmans Publishing',
-        quantity: 1,
-      },
-    ],
-    totalPrice: 2818.33,
-  }; //useSelector((state: any) => state.cart); // TODO
+  const cart = useSelector((state: any) => state.cart);
 
   if (!cart.items || cart.items.length === 0) {
     return <EmptyView />;
@@ -61,62 +17,8 @@ export function CartPage() {
         <Grid.Col span={{ base: 12, md: 8 }}>
           <Stack gap="lg">
             {cart.items &&
-              cart.items.map((item: any, index: number) => (
-                <Flex
-                  key={index}
-                  wrap="nowrap"
-                  // style={{
-                  //   border: '1px solid #eee', TODO
-                  // }}
-                  direction={{ base: 'column', md: 'row' }}
-                >
-                  <Box style={{ flex: 1 }}>
-                    <Image src={item.imageUrl} height={200} alt={item.name} />
-                  </Box>
-                  <Stack
-                    justify="space-between"
-                    style={{
-                      padding: 10,
-                      flex: 3,
-                    }}
-                  >
-                    <Stack gap="xs">
-                      <Title>
-                        {item.name} - {item.author}
-                      </Title>
-                      <Text>{item.publisher}</Text>
-                    </Stack>
-
-                    <Group justify="space-between">
-                      <Flex
-                        justify="center"
-                        w="max-content"
-                        align="center"
-                        style={{
-                          border: '1px solid var(--mantine-primary-color-filled)',
-                          borderRadius: '20px',
-                        }}
-                        gap="10px"
-                      >
-                        <ActionIcon
-                          radius="20px"
-                          variant="subtle"
-                          style={{ lineHeight: 0 }}
-                          w={'max-content'}
-                        >
-                          <Trash size={16} />
-                        </ActionIcon>
-                        <Text size="sm" inline>
-                          {item.quantity}
-                        </Text>
-                        <ActionIcon radius="20px" variant="subtle" style={{ lineHeight: 0 }}>
-                          <Plus size={16} strokeWidth={2} />
-                        </ActionIcon>
-                      </Flex>
-                      <Text>{item.price * item.quantity} TL</Text>
-                    </Group>
-                  </Stack>
-                </Flex>
+              cart.items.map((item: CartItem, index: number) => (
+                <CartProduct key={index} item={item} />
               ))}
           </Stack>
         </Grid.Col>
@@ -126,9 +28,13 @@ export function CartPage() {
             style={{ border: '1px solid #eee', padding: '2rem' }}
             gap={'2rem'}
           >
-            <Title>Total Price</Title>
-            <Title> {cart.totalPrice} TL</Title>
-            <Button>Complete Order</Button>
+            <Stack gap="xs" align="flex-end">
+              <Title order={3}>Total Price</Title>
+              <Title order={2} c="green">
+                {cart.totalPrice.toFixed(2)} TL
+              </Title>
+            </Stack>
+            <Button w="100%">Complete Order</Button>
           </Flex>
         </Grid.Col>
       </Grid>
@@ -145,8 +51,10 @@ export function CartPage() {
         <Container>
           <Flex justify="space-between" align="center">
             <Stack gap={0}>
-              <Text>Total Price</Text>
-              <Text> {cart.totalPrice} TL</Text>
+              <Title order={4}>Total Price</Title>
+              <Title order={3} c="green">
+                {cart.totalPrice.toFixed(2)} TL
+              </Title>
             </Stack>
             <Button>Complete Order</Button>
           </Flex>

@@ -23,13 +23,13 @@ export function AppLayout() {
               <Flex columnGap={16}>
                 <NavLink to="/">
                   {({ isActive }) => (
-                    <Home strokeWidth="1.5" color={isActive ? 'green' : 'black'} />
+                    <Home strokeWidth="1.5" color={isActive ? 'orange' : 'black'} />
                   )}
                 </NavLink>
 
                 <NavLink to="/cart">
                   {({ isActive }) => (
-                    <ShoppingCart strokeWidth="1.5" color={isActive ? 'green' : 'black'} />
+                    <ShoppingCart strokeWidth="1.5" color={isActive ? 'orange' : 'black'} />
                   )}
                 </NavLink>
               </Flex>
@@ -41,10 +41,10 @@ export function AppLayout() {
       <AppShell.Navbar py="md" px={16}>
         <Stack gap={16}>
           <NavLink to="/" onClick={toggle}>
-            {({ isActive }) => <Text c={isActive ? 'green' : 'black'}>Home</Text>}
+            {({ isActive }) => <Text c={isActive ? 'orange' : 'black'}>Home</Text>}
           </NavLink>
           <NavLink to="/cart" onClick={toggle}>
-            {({ isActive }) => <Text c={isActive ? 'green' : 'black'}>Cart</Text>}
+            {({ isActive }) => <Text c={isActive ? 'orange' : 'black'}>Cart</Text>}
           </NavLink>
         </Stack>
       </AppShell.Navbar>
