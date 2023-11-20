@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 import { CartProduct } from '@/components/CartProduct';
 import { EmptyView } from '@/components/EmptyView';
 import { CartItem } from '@/interfaces/cartItem.interface';
+import { Link } from 'react-router-dom';
 
 export function CartPage() {
   const cart = useSelector((state: any) => state.cart);
-
   if (!cart.items || cart.items.length === 0) {
     return <EmptyView />;
   }
@@ -30,7 +30,10 @@ export function CartPage() {
                 {cart.totalPrice.toFixed(2)} TL
               </Title>
             </Stack>
-            <Button w="100%">Complete Order</Button>
+
+            <Button component={Link} to="/checkout">
+              Complete Order
+            </Button>
           </Flex>
         </Grid.Col>
       </Grid>
@@ -52,7 +55,9 @@ export function CartPage() {
                 {cart.totalPrice.toFixed(2)} TL
               </Title>
             </Stack>
-            <Button>Complete Order</Button>
+            <Button component={Link} to="/checkout">
+              Complete Order
+            </Button>
           </Flex>
         </Container>
       </Box>

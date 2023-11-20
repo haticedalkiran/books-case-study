@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { BooksService } from '@/service/books.service';
 import cartState from './cart.state';
+import checkoutState from './checkout.state';
 
 const rootReducer = combineReducers({
   cart: cartState,
+  checkout: checkoutState,
   [BooksService.reducerPath]: BooksService.reducer,
 });
 
