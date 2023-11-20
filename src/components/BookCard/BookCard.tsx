@@ -43,7 +43,9 @@ export function BookCard({ id, title, author, imageUrl, price, publisher }: Book
     <>
       <Stack gap="md" pos="absolute" right={0} style={{ zIndex: 1 }}>
         {alerts.map((message, index) => (
-          <Notification key={index}>{message.message}</Notification>
+          <Notification key={index} withCloseButton={false}>
+            {message.message}
+          </Notification>
         ))}
       </Stack>
 

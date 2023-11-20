@@ -32,7 +32,7 @@ export function CartPage() {
             </Stack>
 
             <Button component={Link} to="/checkout">
-              Complete Order
+              Proceed to Checkout
             </Button>
           </Flex>
         </Grid.Col>
@@ -56,7 +56,7 @@ export function CartPage() {
               </Title>
             </Stack>
             <Button component={Link} to="/checkout">
-              Complete Order
+              Proceed to Checkout
             </Button>
           </Flex>
         </Container>

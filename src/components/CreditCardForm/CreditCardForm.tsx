@@ -1,4 +1,4 @@
-import { updateCardData } from '@/store/checkout.state';
+import { toggleDrawer, updateCardData } from '@/store/checkout.state';
 import { Flex, Stack, Text, TextInput, Box, Button, NumberInput } from '@mantine/core';
 import { useFormik } from 'formik';
 import { useMemo } from 'react';
@@ -85,7 +85,9 @@ export default function CreditCardForm({ formData }: CreditCardFormProps) {
         />
       </Stack>
       <Flex pos={'fixed'} bottom={0} py="lg" right={'1rem'} gap={'lg'}>
-        <Button variant="outline">Cancel</Button>
+        <Button variant="outline" onClick={() => dispatch(toggleDrawer())}>
+          Cancel
+        </Button>
         <Button onClick={formik.submitForm}>Save</Button>
       </Flex>
     </Box>

@@ -16,7 +16,7 @@ import { useFormik } from 'formik';
 import { AddressFormElements } from '@/interfaces/address-form-elements.interface';
 import { object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateAddressData } from '@/store/checkout.state';
+import { toggleDrawer, updateAddressData } from '@/store/checkout.state';
 
 interface AddressFormProps {
   formData?: AddressFormElements;
@@ -167,7 +167,9 @@ export default function AddressForm({ formData }: AddressFormProps) {
       </Stack>
 
       <Flex pos={'fixed'} bottom={0} py="lg" right={'1rem'} gap={'lg'}>
-        <Button variant="outline">Cancel</Button>
+        <Button variant="outline" onClick={() => dispatch(toggleDrawer())}>
+          Cancel
+        </Button>
         <Button onClick={formik.submitForm}>Save</Button>
       </Flex>
     </div>
