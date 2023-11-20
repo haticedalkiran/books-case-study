@@ -1,8 +1,8 @@
+import { Box, Button, Flex, Stack, Title, Grid, Container } from '@mantine/core';
+import { useSelector } from 'react-redux';
 import { CartProduct } from '@/components/CartProduct';
 import { EmptyView } from '@/components/EmptyView';
 import { CartItem } from '@/interfaces/cartItem.interface';
-import { Box, Button, Flex, Stack, Title, Grid, Container } from '@mantine/core';
-import { useSelector } from 'react-redux';
 
 export function CartPage() {
   const cart = useSelector((state: any) => state.cart);
@@ -13,7 +13,7 @@ export function CartPage() {
 
   return (
     <>
-      <Grid gutter={'2rem'} mb={'80px'}>
+      <Grid gutter="2rem" mb="80px">
         <Grid.Col span={{ base: 12, md: 8 }}>
           <Stack gap="lg">
             {cart.items &&
@@ -23,11 +23,7 @@ export function CartPage() {
           </Stack>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 4 }} display={{ base: 'none', md: 'block' }}>
-          <Flex
-            direction="column"
-            style={{ border: '1px solid #eee', padding: '2rem' }}
-            gap={'2rem'}
-          >
+          <Flex direction="column" style={{ border: '1px solid #eee', padding: '2rem' }} gap="2rem">
             <Stack gap="xs" align="flex-end">
               <Title order={3}>Total Price</Title>
               <Title order={2} c="green">
@@ -43,9 +39,9 @@ export function CartPage() {
         pos="fixed"
         left="0"
         bottom="0"
-        bg={'var(--mantine-color-body)'}
+        bg="var(--mantine-color-body)"
         w="100%"
-        py={'0.5rem'}
+        py="0.5rem"
         style={{ borderTop: '1px solid var(--mantine-color-default-border)' }}
       >
         <Container>

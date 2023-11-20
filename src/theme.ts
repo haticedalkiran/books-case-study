@@ -1,10 +1,4 @@
-import {
-  MantineThemeOverride,
-  createTheme,
-  CSSVariablesResolver,
-  Button,
-  Card,
-} from '@mantine/core';
+import { createTheme, CSSVariablesResolver, Card } from '@mantine/core';
 
 export const theme = createTheme({
   primaryColor: 'orange',
@@ -54,17 +48,17 @@ export const theme = createTheme({
     borderColor: '#e5e5e5',
   },
 });
-export const resolver: CSSVariablesResolver = (theme) => ({
+export const resolver: CSSVariablesResolver = (customTheme) => ({
   variables: {
-    '--mantine-color-body': theme.other.backgroundColor,
-    '--mantine-color-default-border': theme.other.borderColor,
+    '--mantine-color-body': customTheme.other.backgroundColor,
+    '--mantine-color-default-border': customTheme.other.borderColor,
   },
   light: {
-    '--mantine-color-body': theme.other.backgroundColor,
-    '--mantine-color-default-border': theme.other.borderColor,
+    '--mantine-color-body': customTheme.other.backgroundColor,
+    '--mantine-color-default-border': customTheme.other.borderColor,
   },
   dark: {
-    '--mantine-color-body': theme.other.backgroundColorDark,
-    '--mantine-color-default-border': theme.other.borderColor,
+    '--mantine-color-body': customTheme.other.backgroundColorDark,
+    '--mantine-color-default-border': customTheme.other.borderColor,
   },
 });

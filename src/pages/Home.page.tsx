@@ -1,13 +1,13 @@
-import { BookCard } from '@/components/BookCard';
-import { Book } from '@/interfaces/book.interface';
-import { useLazyGetBooksQuery } from '@/service/books.service';
 import { Box, Grid, Loader } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BookCard } from '@/components/BookCard';
+import { Book } from '@/interfaces/book.interface';
+import { useLazyGetBooksQuery } from '@/service/books.service';
 
 export function HomePage() {
   const [getBooks, { data }] = useLazyGetBooksQuery();
-  const [searchString, setSearchString] = useState('list');
+  const [searchString, setSearchString] = useState('science-fictions');
 
   useEffect(() => {
     getBooks({ query: searchString });
@@ -22,7 +22,7 @@ export function HomePage() {
   }
   return (
     <>
-      <Grid gutter={'24px'}>
+      <Grid gutter="24px">
         {data.items.map((item: Book, index: string) => (
           <Grid.Col key={index} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>
             <Link to={`/book/${item.id}`}>

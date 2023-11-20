@@ -1,8 +1,8 @@
-import { Button, Card, Group, Image, Notification, Rating, Stack, Text } from '@mantine/core';
+import { Button, Card, Image, Notification, Stack, Text } from '@mantine/core';
 import './bookCard.css';
 import { useDispatch } from 'react-redux';
-import { addItem } from '@/store/cart.state';
 import { useState } from 'react';
+import { addItem } from '@/store/cart.state';
 import { Alert } from '@/interfaces/alert.interface';
 
 interface BookCardInterface {

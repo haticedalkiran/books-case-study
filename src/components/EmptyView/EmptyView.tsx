@@ -1,9 +1,9 @@
 import { Button, Stack, Text } from '@mantine/core';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ShoppingCart } from 'tabler-icons-react';
 
 export function EmptyView() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const routeChange = () => {
     navigate('/');

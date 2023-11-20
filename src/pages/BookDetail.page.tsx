@@ -1,7 +1,3 @@
-import { Alert } from '@/interfaces/alert.interface';
-import { IndustryIdentifier } from '@/interfaces/volume.interface';
-import { useGetBookDetailsQuery } from '@/service/books.service';
-import { addItem } from '@/store/cart.state';
 import {
   Anchor,
   Box,
@@ -21,10 +17,14 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { Alert } from '@/interfaces/alert.interface';
+import { IndustryIdentifier } from '@/interfaces/volume.interface';
+import { useGetBookDetailsQuery } from '@/service/books.service';
+import { addItem } from '@/store/cart.state';
 
 export function BookDetail() {
   const { id } = useParams();
-  const { data: bookData } = useGetBookDetailsQuery({ id: id });
+  const { data: bookData } = useGetBookDetailsQuery({ id });
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const dispatch = useDispatch();

@@ -1,23 +1,23 @@
-import { Book } from '@/interfaces/book.interface';
-import { CartItem } from '@/interfaces/cartItem.interface';
-import { removeItem, updateQuantity } from '@/store/cart.state';
 import { Box, Flex, Stack, Text, Title, Group, Image, ActionIcon } from '@mantine/core';
 import { useDispatch } from 'react-redux';
 import { Minus, Plus, Trash } from 'tabler-icons-react';
+import { removeItem, updateQuantity } from '@/store/cart.state';
+import { CartItem } from '@/interfaces/cartItem.interface';
 
 interface CartProductProps {
   item: CartItem;
 }
 export function CartProduct({ item }: CartProductProps) {
   const dispatch = useDispatch();
+
   const removeFromCartHandler = () => {
-    console.log('removeFromCartHandler');
     dispatch(removeItem(item.id));
   };
 
   const updateQuantityHandler = (quantity: number) => {
     dispatch(updateQuantity({ productId: item.id, quantity }));
   };
+
   return (
     <Flex
       wrap="nowrap"
@@ -54,12 +54,7 @@ export function CartProduct({ item }: CartProductProps) {
               }}
               gap="sm"
             >
-              <ActionIcon
-                radius="20px"
-                variant="subtle"
-                style={{ lineHeight: 0 }}
-                w={'max-content'}
-              >
+              <ActionIcon radius="20px" variant="subtle" style={{ lineHeight: 0 }} w="max-content">
                 {item.quantity === 1 ? (
                   <Trash size={16} onClick={removeFromCartHandler} />
                 ) : (
