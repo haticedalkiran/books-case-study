@@ -1,9 +1,9 @@
 import { toggleDrawer, updateCardData } from '@/store/checkout.state';
-import { Flex, Stack, Text, TextInput, Box, Button, NumberInput } from '@mantine/core';
+import { Flex, Stack, TextInput, Box, Button } from '@mantine/core';
 import { useFormik } from 'formik';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { number, object, string } from 'yup';
+import { object, string } from 'yup';
 
 interface CreditCardFormProps {
   formData?: any;
@@ -39,7 +39,6 @@ export default function CreditCardForm({ formData }: CreditCardFormProps) {
 
   return (
     <Box>
-      {' '}
       <Stack>
         <TextInput
           name="cardNumber"
@@ -84,7 +83,7 @@ export default function CreditCardForm({ formData }: CreditCardFormProps) {
           required
         />
       </Stack>
-      <Flex pos={'fixed'} bottom={0} py="lg" right={'1rem'} gap={'lg'}>
+      <Flex pos="fixed" bottom="0" py="lg" right="1rem" gap="lg">
         <Button variant="outline" onClick={() => dispatch(toggleDrawer())}>
           Cancel
         </Button>

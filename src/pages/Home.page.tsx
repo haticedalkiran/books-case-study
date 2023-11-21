@@ -1,9 +1,10 @@
-import { Box, Grid, Loader } from '@mantine/core';
+import { Box, Grid, Loader, Text, TextInput } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BookCard } from '@/components/BookCard';
 import { Book } from '@/interfaces/book.interface';
 import { useLazyGetBooksQuery } from '@/service/books.service';
+import { Search } from 'tabler-icons-react';
 
 export function HomePage() {
   const [getBooks, { data }] = useLazyGetBooksQuery();
@@ -22,6 +23,17 @@ export function HomePage() {
   }
   return (
     <>
+      <TextInput
+        label="Search books"
+        placeholder="Search"
+        leftSection={<Search size={14} />}
+        mb="lg"
+        value={searchString}
+        onChange={(e) => setSearchString(e.currentTarget.value)}
+      />
+      <Text fw={500} mb="lg">
+        Showing results for: {searchString}
+      </Text>
       <Grid gutter="24px">
         {data.items.map((item: Book, index: string) => (
           <Grid.Col key={index} span={{ base: 12, sm: 6, md: 4, lg: 3 }}>

@@ -1,22 +1,11 @@
-import {
-  Stack,
-  Text,
-  TextInput,
-  Select,
-  Textarea,
-  Group,
-  Button,
-  Box,
-  SelectProps,
-  Flex,
-} from '@mantine/core';
+import { Stack, TextInput, Select, Textarea, Group, Button, Flex } from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
-import CityList from '../../mock/cities-districts.json';
 import { useFormik } from 'formik';
-import { AddressFormElements } from '@/interfaces/address-form-elements.interface';
 import { object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleDrawer, updateAddressData } from '@/store/checkout.state';
+import CityList from '../../mock/cities-districts.json';
+import { AddressFormElements } from '@/interfaces/address-form-elements.interface';
 
 interface AddressFormProps {
   formData?: AddressFormElements;
@@ -30,11 +19,6 @@ export default function AddressForm({ formData }: AddressFormProps) {
     value: city.value.toString(),
     label: city.text,
   }));
-
-  useEffect(() => {
-    console.log('address ******', address);
-    console.log('***');
-  }, [address]);
 
   const addressValidationSchema = useMemo(
     () =>
@@ -166,7 +150,7 @@ export default function AddressForm({ formData }: AddressFormProps) {
         />
       </Stack>
 
-      <Flex pos={'fixed'} bottom={0} py="lg" right={'1rem'} gap={'lg'}>
+      <Flex pos="fixed" bottom="0" py="lg" right="1rem" gap="lg">
         <Button variant="outline" onClick={() => dispatch(toggleDrawer())}>
           Cancel
         </Button>
