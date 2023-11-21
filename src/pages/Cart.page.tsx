@@ -6,9 +6,10 @@ import { EmptyView } from '@/components/EmptyView';
 import { CartItem } from '@/interfaces/cartItem.interface';
 import TotalPriceDisplay from '@/components/TotalPriceDisplay/TotalPriceDisplay';
 import TotalPriceDisplayFooter from '@/components/TotalPriceDisplayFooter/TotalPriceDisplayFooter';
+import { RootState } from '@/store/store';
 
 export function CartPage() {
-  const { items, totalPrice } = useSelector((state: any) => state.cart);
+  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
 
   if (!items || items.length === 0) {
     return <EmptyView />;
