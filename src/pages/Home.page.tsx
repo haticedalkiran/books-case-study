@@ -1,10 +1,11 @@
-import { Box, Grid, Loader, Text, TextInput } from '@mantine/core';
+import { Box, Grid, Loader, Stack, Text, TextInput } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BookCard } from '@/components/BookCard';
 import { Book } from '@/interfaces/book.interface';
 import { useLazyGetBooksQuery } from '@/service/books.service';
 import { Search } from 'tabler-icons-react';
+import LoaderBox from '@/components/Loader/Loader';
 
 export function HomePage() {
   const [getBooks, { data }] = useLazyGetBooksQuery();
@@ -15,14 +16,10 @@ export function HomePage() {
   }, [searchString]);
 
   if (!data) {
-    return (
-      <Box ta="center">
-        <Loader />
-      </Box>
-    );
+    return <LoaderBox />;
   }
   return (
-    <>
+    <Stack>
       <TextInput
         label="Search books"
         placeholder="Search"
@@ -50,6 +47,6 @@ export function HomePage() {
           </Grid.Col>
         ))}
       </Grid>
-    </>
+    </Stack>
   );
 }

@@ -23,34 +23,37 @@ import { Link, useNavigate } from 'react-router-dom';
 import { removeAllItemsFromCart } from '@/store/cart.state';
 import { ArrowLeft } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
+import TotalPriceFooter from '@/components/TotalPriceDisplay/TotalPriceDisplay';
+import TotalPriceDisplay from '@/components/TotalPriceDisplay/TotalPriceDisplay';
+import TotalPriceDisplayFooter from '@/components/TotalPriceDisplayFooter/TotalPriceDisplayFooter';
 
 export default function Checkout() {
   const cart = useSelector((state: any) => state.cart);
-  const address = useSelector((state: any) => state.checkout.addressFormData);
-  const card = useSelector((state: any) => state.checkout.creditCardFormData);
-  const drawerOpened = useSelector((state: any) => state.checkout.drawerOpened);
-  const isCheckoutEnabled = useSelector((state: any) => state.checkout.isCheckoutEnabled);
-  const isAgreedToTerms = useSelector((state: any) => state.checkout.agreedToTerms);
+
+  const { addressFormData, creditCardFormData, drawerOpened, isCheckoutEnabled, agreedToTerms } =
+    useSelector((state: any) => state.checkout);
+
   const [orderCompleted, setOrderCompleted] = useState(false);
   const [activeForm, setActiveForm] = useState(1);
   const [visible, { toggle }] = useDisclosure(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const [addressDrawerOpened, setDrawerOpened] = useState(false);
-
   const drawerToggleHandler = (form: number) => {
     setActiveForm(form);
-
     dispatch(toggleDrawer());
   };
+
   const agreeToTermsHandler = () => {
     dispatch(toggleAgreedToTerms());
   };
 
   const completeOrderHandler = () => {
     dispatch(removeAllItemsFromCart());
+
     setOrderCompleted(true);
+
     toggle();
 
     setTimeout(() => {
@@ -107,21 +110,21 @@ export default function Checkout() {
                   Address Details
                 </Title>
                 <Text size={'sm'} c="dimmed" onClick={() => drawerToggleHandler(1)} lh={'lg'}>
-                  {address.city === '' ? 'Add' : 'Edit'}
+                  {addressFormData.city === '' ? 'Add' : 'Edit'}
                 </Text>
               </Group>
               <>
-                {address.city === '' ? (
+                {addressFormData.city === '' ? (
                   <>
                     <Text c="dimmed">Please add address</Text>
                   </>
                 ) : (
                   <Stack gap="xs" p="md" style={{ border: '1px solid #eee' }}>
                     <Text fw={500}>
-                      {address.name} {address.surname}
+                      {addressFormData.name} {addressFormData.surname}
                     </Text>
                     <Text lineClamp={1}>
-                      {address.address} {address.district}/{address.city}
+                      {addressFormData.address} {addressFormData.district}/{addressFormData.city}
                     </Text>
                   </Stack>
                 )}
@@ -134,18 +137,21 @@ export default function Checkout() {
                   Payment
                 </Title>
                 <Text size={'sm'} c="dimmed" onClick={() => drawerToggleHandler(2)}>
-                  {card.cardNumber === '' ? 'Add' : 'Edit'}
+                  {creditCardFormData.cardNumber === '' ? 'Add' : 'Edit'}
                 </Text>
               </Group>
               <>
-                {card.cardNumber === '' ? (
+                {creditCardFormData.cardNumber === '' ? (
                   <>
                     <Text c="dimmed">Please add credit card</Text>
                   </>
                 ) : (
                   <Stack gap="xs" p="md" style={{ border: '1px solid #eee' }}>
-                    <Text fw={500}>{card.nameSurname}</Text>
-                    <Text>**** **** **** {card.cardNumber.substr(card.cardNumber.length - 4)}</Text>
+                    <Text fw={500}>{creditCardFormData.nameSurname}</Text>
+
+                    <Text>
+                      **** **** **** {creditCardFormData.cardNumber.toString().substring(12)}
+                    </Text>
                   </Stack>
                 )}
               </>
@@ -153,63 +159,46 @@ export default function Checkout() {
           </Stack>
         </GridCol>
         <GridCol span={{ base: 12, md: 4 }} display={{ base: 'none', md: 'block' }}>
-          <Flex direction="column" style={{ border: '1px solid #eee', padding: '2rem' }} gap="2rem">
-            <Stack gap="xs" align="flex-end">
-              <Title order={3}>Total Price</Title>
-              <Title order={2} c="green">
-                {cart.totalPrice.toFixed(2)} TL
-              </Title>
-            </Stack>
-
+          <TotalPriceDisplay totalPrice={cart.totalPrice.toFixed(2)}>
             <Checkbox
-              checked={isAgreedToTerms}
+              checked={agreedToTerms}
               onChange={agreeToTermsHandler}
               label="I agree terms and conditions"
             />
             <Button disabled={!isCheckoutEnabled} onClick={completeOrderHandler}>
               Complete Order
             </Button>
-          </Flex>
+          </TotalPriceDisplay>
         </GridCol>
       </Grid>
       <Checkbox
         mt={'lg'}
         display={{ base: 'block', md: 'none' }}
-        checked={isAgreedToTerms}
+        checked={agreedToTerms}
         onChange={agreeToTermsHandler}
         label="I agree terms and conditions"
       />
-      <Box
-        display={{ base: 'block', md: 'none' }}
-        pos="fixed"
-        left="0"
-        bottom="0"
-        bg="var(--mantine-color-body)"
-        w="100%"
-        py="0.5rem"
-        style={{ borderTop: '1px solid var(--mantine-color-default-border)' }}
-      >
-        <Container>
-          <Flex justify="space-between" align="center">
-            <Stack gap={0}>
-              <Title order={4}>Total Price</Title>
-              <Title order={3} c="green">
-                {cart.totalPrice.toFixed(2)} TL
-              </Title>
-            </Stack>
-            <Button disabled={!isCheckoutEnabled} onClick={completeOrderHandler}>
-              Complete Order
-            </Button>
-          </Flex>
-        </Container>
-      </Box>
+
+      <TotalPriceDisplayFooter
+        totalPrice={cart.totalPrice.toFixed(2)}
+        children={
+          <Button disabled={!isCheckoutEnabled} onClick={completeOrderHandler}>
+            Complete Order
+          </Button>
+        }
+      />
+
       <Drawer
         opened={drawerOpened}
         onClose={() => dispatch(toggleDrawer())}
         position="right"
         title={activeForm === 1 ? 'Edit Address' : 'Edit Card Details'}
       >
-        {activeForm === 1 ? <AddressForm /> : <CreditCardForm />}
+        {activeForm === 1 ? (
+          <AddressForm formData={addressFormData} />
+        ) : (
+          <CreditCardForm formData={creditCardFormData} />
+        )}
       </Drawer>
     </>
   );

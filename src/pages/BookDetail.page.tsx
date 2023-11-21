@@ -21,6 +21,7 @@ import { Alert } from '@/interfaces/alert.interface';
 import { IndustryIdentifier } from '@/interfaces/volume.interface';
 import { useGetBookDetailsQuery } from '@/service/books.service';
 import { addItem } from '@/store/cart.state';
+import LoaderBox from '@/components/Loader/Loader';
 
 export function BookDetail() {
   const { id } = useParams();
@@ -58,11 +59,7 @@ export function BookDetail() {
   };
 
   if (!bookData) {
-    return (
-      <Box ta="center">
-        <Loader />
-      </Box>
-    );
+    return <LoaderBox />;
   }
 
   return (

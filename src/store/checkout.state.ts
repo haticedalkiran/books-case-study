@@ -39,7 +39,7 @@ const initialState: CheckoutInfState = {
     name: '',
     surname: '',
     email: '',
-    phone: '',
+    phone: '+90',
     city: '',
     district: '',
     address: '',

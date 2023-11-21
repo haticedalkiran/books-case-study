@@ -1,4 +1,14 @@
-import { Stack, TextInput, Select, Textarea, Group, Button, Flex } from '@mantine/core';
+import {
+  Stack,
+  TextInput,
+  Select,
+  Textarea,
+  Group,
+  Button,
+  Flex,
+  Drawer,
+  Box,
+} from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
@@ -6,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleDrawer, updateAddressData } from '@/store/checkout.state';
 import CityList from '../../mock/cities-districts.json';
 import { AddressFormElements } from '@/interfaces/address-form-elements.interface';
+import DrawerFooter from '../DrawerFooter/DrawerFooter';
 
 interface AddressFormProps {
   formData?: AddressFormElements;
@@ -13,7 +24,6 @@ interface AddressFormProps {
 export default function AddressForm({ formData }: AddressFormProps) {
   const [districts, setDistricts] = useState([{ value: '', label: '' }]);
   const dispatch = useDispatch();
-  const address = useSelector((state: any) => state.checkout);
 
   const citiesDdOptions = CityList.map((city) => ({
     value: city.value.toString(),
@@ -23,13 +33,19 @@ export default function AddressForm({ formData }: AddressFormProps) {
   const addressValidationSchema = useMemo(
     () =>
       object().shape({
-        name: string().required('Required'),
-        surname: string().required('Required'),
-        email: string().email('Invalid email format').required('Required'),
-        phone: string().required('Required'),
-        city: string().required('Required'),
-        district: string().required('Required'),
-        address: string().required('Required'),
+        name: string()
+          .matches(/^[a-zA-Z\s]+$/, 'Name must contain only letters')
+          .required('Name is required'),
+        surname: string()
+          .matches(/^[a-zA-Z\s]+$/, 'Surname must contain only letters')
+          .required('Surname is required'),
+        email: string().email('Invalid email format').required('Email is required'),
+        phone: string()
+          .matches(/^\+90[0-9]{10}$/, 'Phone number must start with +90 and followed by 10 digits')
+          .required('Phone is required'),
+        city: string().required('City is required'),
+        district: string().required('District is required'),
+        address: string().required('Address is required'),
       }),
 
     []
@@ -52,12 +68,14 @@ export default function AddressForm({ formData }: AddressFormProps) {
       values.district = districts.filter((dist) => dist.value === values.district)[0].label;
 
       dispatch(updateAddressData(values));
+      dispatch(toggleDrawer());
     },
   });
 
   useEffect(() => {
     if (formik.values.city !== '') {
       const selectedCity = CityList.find((city) => city.value.toString() === formik.values.city);
+
       if (selectedCity && selectedCity.districts) {
         const distList = selectedCity.districts.map((district) => ({
           value: district.value.toString(),
@@ -71,7 +89,7 @@ export default function AddressForm({ formData }: AddressFormProps) {
   }, [formik.values.city]);
 
   return (
-    <div>
+    <Box>
       <Stack>
         <Group>
           <TextInput
@@ -83,7 +101,7 @@ export default function AddressForm({ formData }: AddressFormProps) {
             onBlur={formik.handleBlur}
             style={{ flex: '1' }}
             required
-            error={formik.errors.name && formik.touched.name && formik.errors.name}
+            error={formik.errors.name && formik.touched.name ? formik.errors.name : ''}
           />
           <TextInput
             name="surname"
@@ -95,7 +113,7 @@ export default function AddressForm({ formData }: AddressFormProps) {
             style={{ flex: '1' }}
             required
             withAsterisk={false}
-            error={formik.errors.surname && formik.touched.surname && formik.errors.surname}
+            error={formik.errors.surname && formik.touched.surname ? formik.errors.surname : ''}
           />
         </Group>
         <TextInput
@@ -106,7 +124,7 @@ export default function AddressForm({ formData }: AddressFormProps) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           required
-          error={formik.errors.email && formik.touched.email && formik.errors.email}
+          error={formik.errors.email && formik.touched.email ? formik.errors.email : ''}
         />
         <TextInput
           name="phone"
@@ -116,18 +134,20 @@ export default function AddressForm({ formData }: AddressFormProps) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           required
-          error={formik.errors.phone && formik.touched.phone && formik.errors.phone}
+          error={formik.errors.phone && formik.touched.phone ? formik.errors.phone : ''}
         />
         <Select
+          name="city"
           data={citiesDdOptions}
+          value={citiesDdOptions.find((city) => city.label === formik.values.city)?.value}
           label="City"
           onChange={(e) => formik.setFieldValue('city', e)}
           searchable
           placeholder="City"
           required
-          error={formik.errors.city && formik.touched.city && formik.errors.city}
+          error={formik.errors.city && formik.touched.city ? formik.errors.city : ''}
         />
-        {formik.values.city && districts && (
+        {formik.values.city !== '' && districts && (
           <Select
             data={districts}
             label="District"
@@ -135,7 +155,7 @@ export default function AddressForm({ formData }: AddressFormProps) {
             onChange={(e) => formik.setFieldValue('district', e)}
             placeholder="District"
             required
-            error={formik.errors.district && formik.touched.district && formik.errors.district}
+            error={formik.errors.district && formik.touched.district ? formik.errors.district : ''}
           />
         )}
         <Textarea
@@ -146,16 +166,11 @@ export default function AddressForm({ formData }: AddressFormProps) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           required
-          error={formik.errors.address && formik.touched.address && formik.errors.address}
+          error={formik.errors.address && formik.touched.address ? formik.errors.address : ''}
         />
       </Stack>
 
-      <Flex pos="fixed" bottom="0" py="lg" right="1rem" gap="lg">
-        <Button variant="outline" onClick={() => dispatch(toggleDrawer())}>
-          Cancel
-        </Button>
-        <Button onClick={formik.submitForm}>Save</Button>
-      </Flex>
-    </div>
+      <DrawerFooter onSave={formik.submitForm} />
+    </Box>
   );
 }
