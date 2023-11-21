@@ -1,5 +1,4 @@
-import { Button, ButtonProps, Flex, Stack, Title } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Flex, Stack, Title } from '@mantine/core';
 
 interface TotalPriceFooterProps {
   children?: React.ReactNode;

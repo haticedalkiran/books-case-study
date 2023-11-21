@@ -1,25 +1,15 @@
-import {
-  Stack,
-  TextInput,
-  Select,
-  Textarea,
-  Group,
-  Button,
-  Flex,
-  Drawer,
-  Box,
-} from '@mantine/core';
+import { Stack, TextInput, Select, Textarea, Group, Box } from '@mantine/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toggleDrawer, updateAddressData } from '@/store/checkout.state';
 import CityList from '../../mock/cities-districts.json';
-import { AddressFormElements } from '@/interfaces/address-form-elements.interface';
+import { Address } from '@/interfaces/address.interface';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
 
 interface AddressFormProps {
-  formData?: AddressFormElements;
+  formData?: Address;
 }
 export default function AddressForm({ formData }: AddressFormProps) {
   const [districts, setDistricts] = useState([{ value: '', label: '' }]);
@@ -64,10 +54,13 @@ export default function AddressForm({ formData }: AddressFormProps) {
     enableReinitialize: true,
     validationSchema: addressValidationSchema,
     onSubmit: (values) => {
-      values.city = citiesDdOptions.filter((city) => city.value === values.city)[0].label;
-      values.district = districts.filter((dist) => dist.value === values.district)[0].label;
-
-      dispatch(updateAddressData(values));
+      dispatch(
+        updateAddressData({
+          ...values,
+          city: citiesDdOptions.filter((city) => city.value === values.city)[0].label,
+          district: districts.filter((dist) => dist.value === values.district)[0].label,
+        })
+      );
       dispatch(toggleDrawer());
     },
   });

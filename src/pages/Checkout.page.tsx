@@ -4,7 +4,6 @@ import {
   Group,
   Text,
   Stack,
-  Flex,
   Title,
   Grid,
   GridCol,
@@ -13,25 +12,24 @@ import {
   Checkbox,
   Box,
   LoadingOverlay,
-  Container,
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'tabler-icons-react';
+import { useDisclosure } from '@mantine/hooks';
 import AddressForm from '@/components/AddressForm/AddressForm';
 import CreditCardForm from '@/components/CreditCardForm/CreditCardForm';
 import { toggleAgreedToTerms, toggleDrawer } from '@/store/checkout.state';
-import { Link, useNavigate } from 'react-router-dom';
 import { removeAllItemsFromCart } from '@/store/cart.state';
-import { ArrowLeft } from 'tabler-icons-react';
-import { useDisclosure } from '@mantine/hooks';
-import TotalPriceFooter from '@/components/TotalPriceDisplay/TotalPriceDisplay';
 import TotalPriceDisplay from '@/components/TotalPriceDisplay/TotalPriceDisplay';
 import TotalPriceDisplayFooter from '@/components/TotalPriceDisplayFooter/TotalPriceDisplayFooter';
+import { RootState } from '@/store/store';
 
 export default function Checkout() {
-  const cart = useSelector((state: any) => state.cart);
+  const cart = useSelector((state: RootState) => state.cart);
 
   const { addressFormData, creditCardFormData, drawerOpened, isCheckoutEnabled, agreedToTerms } =
-    useSelector((state: any) => state.checkout);
+    useSelector((state: RootState) => state.checkout);
 
   const [orderCompleted, setOrderCompleted] = useState(false);
   const [activeForm, setActiveForm] = useState(1);
@@ -98,7 +96,7 @@ export default function Checkout() {
       </Button>
       <Grid>
         <GridCol span={{ base: 12, md: 8 }}>
-          <Stack gap={'lg'}>
+          <Stack gap="lg">
             <Stack
               style={{
                 border: '1px solid #eee',
@@ -106,10 +104,10 @@ export default function Checkout() {
               p="lg"
             >
               <Group align="baseline">
-                <Title order={3} c="orange" lh={'lg'}>
+                <Title order={3} c="orange" lh="lg">
                   Address Details
                 </Title>
-                <Text size={'sm'} c="dimmed" onClick={() => drawerToggleHandler(1)} lh={'lg'}>
+                <Text size="sm" c="dimmed" onClick={() => drawerToggleHandler(1)} lh="lg">
                   {addressFormData.city === '' ? 'Add' : 'Edit'}
                 </Text>
               </Group>
@@ -136,7 +134,7 @@ export default function Checkout() {
                 <Title order={3} c="orange">
                   Payment
                 </Title>
-                <Text size={'sm'} c="dimmed" onClick={() => drawerToggleHandler(2)}>
+                <Text size="sm" c="dimmed" onClick={() => drawerToggleHandler(2)}>
                   {creditCardFormData.cardNumber === '' ? 'Add' : 'Edit'}
                 </Text>
               </Group>
@@ -172,21 +170,18 @@ export default function Checkout() {
         </GridCol>
       </Grid>
       <Checkbox
-        mt={'lg'}
+        mt="lg"
         display={{ base: 'block', md: 'none' }}
         checked={agreedToTerms}
         onChange={agreeToTermsHandler}
         label="I agree terms and conditions"
       />
 
-      <TotalPriceDisplayFooter
-        totalPrice={cart.totalPrice.toFixed(2)}
-        children={
-          <Button disabled={!isCheckoutEnabled} onClick={completeOrderHandler}>
-            Complete Order
-          </Button>
-        }
-      />
+      <TotalPriceDisplayFooter totalPrice={cart.totalPrice.toFixed(2)}>
+        <Button disabled={!isCheckoutEnabled} onClick={completeOrderHandler}>
+          Complete Order
+        </Button>
+      </TotalPriceDisplayFooter>
 
       <Drawer
         opened={drawerOpened}

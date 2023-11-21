@@ -1,6 +1,6 @@
-import { AddressFormElements } from '@/interfaces/address-form-elements.interface';
-import { CreditCard } from '@/interfaces/credit-card.interface';
 import { createSlice } from '@reduxjs/toolkit';
+import { Address } from '@/interfaces/address.interface';
+import { CreditCard } from '@/interfaces/credit-card.interface';
 
 //it helps to check if the user has filled both address and credit card forms, and if so, it enables the checkout button
 //TODO: Is it enough to check only one key from each form?
@@ -27,7 +27,7 @@ function canCompleteOrder(state: CheckoutInfState): boolean {
 }
 
 interface CheckoutInfState {
-  addressFormData: AddressFormElements;
+  addressFormData: Address;
   creditCardFormData: CreditCard;
   drawerOpened: boolean;
   isCheckoutEnabled: boolean;

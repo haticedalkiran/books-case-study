@@ -1,10 +1,10 @@
-import { Box, Grid, Loader, Stack, Text, TextInput } from '@mantine/core';
+import { Grid, Stack, Text, TextInput } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Search } from 'tabler-icons-react';
 import { BookCard } from '@/components/BookCard';
 import { Book } from '@/interfaces/book.interface';
 import { useLazyGetBooksQuery } from '@/service/books.service';
-import { Search } from 'tabler-icons-react';
 import LoaderBox from '@/components/Loader/Loader';
 
 export function HomePage() {

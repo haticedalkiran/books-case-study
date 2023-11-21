@@ -1,9 +1,9 @@
 import { Button, Card, Image, Notification, Stack, Text } from '@mantine/core';
-import './bookCard.css';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { addItem } from '@/store/cart.state';
 import { Alert } from '@/interfaces/alert.interface';
+import './bookCard.css';
 
 interface BookCardInterface {
   id: string;
@@ -18,7 +18,7 @@ export function BookCard({ id, title, author, imageUrl, price, publisher }: Book
   const dispatch = useDispatch();
   const [alerts, setAlerts] = useState<Alert[]>([]);
 
-  const handleAddToCart = (e: any) => {
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     dispatch(
@@ -49,7 +49,7 @@ export function BookCard({ id, title, author, imageUrl, price, publisher }: Book
         ))}
       </Stack>
 
-      <Card>
+      <Card className="book-card-container">
         <Card.Section>
           <Image src={imageUrl} height={160} alt={title} />
         </Card.Section>
@@ -67,7 +67,9 @@ export function BookCard({ id, title, author, imageUrl, price, publisher }: Book
           </Stack>
 
           {/* when card hovered, make button visible */}
-          <Button onClick={handleAddToCart}>Add to Cart</Button>
+          <Button onClick={handleAddToCart} className="btn-add-chart">
+            Add to Cart
+          </Button>
         </Stack>
       </Card>
     </>

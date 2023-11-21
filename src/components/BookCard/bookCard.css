@@ -1,13 +1,12 @@
 .mantine-Card-root {
   height: 100%;
 }
-/* TODO screen size */
-@media (min-width: 768px) {
-  /* .mantine-Button-root {
+@media (min-width: --mantine-breakpoint-md) {
+  .btn-add-chart {
     visibility: hidden;
   }
 
-  .mantine-Card-root:hover .mantine-Button-root {
+  .book-card-container:hover .btn-add-chart {
     visibility: visible;
-  } */
+  }
 }

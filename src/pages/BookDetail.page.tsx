@@ -6,7 +6,6 @@ import {
   Grid,
   Group,
   Image,
-  Loader,
   Notification,
   Stack,
   Tabs,
@@ -91,6 +90,7 @@ export function BookDetail() {
               </Tabs.List>
               <Tabs.Panel value="bookDesc">
                 <Stack gap="xs">
+                  {/* api gives html text so use it as this way */}
                   <TypographyStylesProvider style={{ padding: 0, margin: 0 }}>
                     <Text
                       style={{ padding: 0, margin: 0 }}

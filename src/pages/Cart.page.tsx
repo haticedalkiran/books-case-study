@@ -1,9 +1,9 @@
-import { Box, Button, Flex, Stack, Title, Grid, Container } from '@mantine/core';
+import { Button, Stack, Grid } from '@mantine/core';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { CartProduct } from '@/components/CartProduct';
 import { EmptyView } from '@/components/EmptyView';
 import { CartItem } from '@/interfaces/cartItem.interface';
-import { Link } from 'react-router-dom';
 import TotalPriceDisplay from '@/components/TotalPriceDisplay/TotalPriceDisplay';
 import TotalPriceDisplayFooter from '@/components/TotalPriceDisplayFooter/TotalPriceDisplayFooter';
 

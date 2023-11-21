@@ -51,6 +51,7 @@ export function AppLayout() {
 
       <AppShell.Main>
         <Container>
+          {/* I use outlet to insert pages insde container  */}
           <Outlet />
         </Container>
       </AppShell.Main>

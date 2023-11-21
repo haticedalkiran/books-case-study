@@ -7,7 +7,10 @@ export const BooksService = createApi({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: ({ query }) => ({
-        url: `/volumes?q=${query}&langRestrict=en&filter=paid-ebooks`, //filter to get prices bc some books don't have
+        //filter to get prices bc some books don't have
+        //here, query cannot be empty string , "" or null
+        //Js compiles query="" as query=&... and its not valid
+        url: `/volumes?q=${query}&langRestrict=en&filter=paid-ebooks`,
         method: 'GET',
       }),
     }),

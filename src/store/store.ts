@@ -11,6 +11,8 @@ const rootReducer = combineReducers({
 
 const middlewares = [BooksService.middleware];
 
+export type RootState = ReturnType<typeof rootReducer>;
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares),

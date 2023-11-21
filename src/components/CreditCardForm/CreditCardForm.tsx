@@ -1,13 +1,14 @@
-import { toggleDrawer, updateCardData } from '@/store/checkout.state';
-import { Flex, Stack, TextInput, Box, Button, Drawer } from '@mantine/core';
+import { Flex, Stack, TextInput, Box } from '@mantine/core';
 import { useFormik } from 'formik';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { object, string } from 'yup';
+import { toggleDrawer, updateCardData } from '@/store/checkout.state';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
+import { CreditCard } from '@/interfaces/credit-card.interface';
 
 interface CreditCardFormProps {
-  formData?: any;
+  formData?: CreditCard;
 }
 
 export default function CreditCardForm({ formData }: CreditCardFormProps) {
@@ -63,7 +64,7 @@ export default function CreditCardForm({ formData }: CreditCardFormProps) {
             formik.touched.cardNumber && formik.errors.cardNumber ? formik.errors.cardNumber : ''
           }
         />
-        <Flex gap={'lg'}>
+        <Flex gap="lg">
           <TextInput
             name="expirationDate"
             label="Expiration Date"

@@ -1,4 +1,4 @@
-export interface AddressFormElements {
+export interface Address {
   name?: string;
   surname?: string;
   email?: string;

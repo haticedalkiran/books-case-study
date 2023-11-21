@@ -1,6 +1,6 @@
-import { toggleDrawer } from '@/store/checkout.state';
 import { Button, Flex } from '@mantine/core';
 import { useDispatch } from 'react-redux';
+import { toggleDrawer } from '@/store/checkout.state';
 
 interface DrawerFooterProps {
   onSave: () => void;
